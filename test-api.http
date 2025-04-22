@@ -1,0 +1,33 @@
+### Get all books
+GET http://localhost:8080/Books
+
+
+
+### Create new book
+POST http://localhost:8080/Books
+Content-Type: application/json
+
+{
+  "title": "testtt Book",
+  "price": 250,
+  "state": true,
+  "publisher": "Publisher"
+}
+
+### Delete book by id
+DELETE http://localhost:8080/Books/7
+
+
+### Update book Data
+
+Put http://localhost:8080/Books/4?title=mmm&price=122.56
+
+
+
+### Get DESC books
+GET http://localhost:8080/Books/DESC
+
+
+
+### Delete All Books
+DELETE http://localhost:8080/Books/deleteAll

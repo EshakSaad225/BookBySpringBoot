@@ -8,19 +8,21 @@ POST http://localhost:8080/Books
 Content-Type: application/json
 
 {
-  "title": "testtt Book",
-  "price": 250,
+  "title": "testtt Book 90",
+  "price": 150,
   "state": true,
-  "publisher": "Publisher"
+  "author": {
+    "id": "df371ef2-9d15-4f50-9c3f-a1c5e629de66"
+  }
 }
 
 ### Delete book by id
-DELETE http://localhost:8080/Books/7
+DELETE http://localhost:8080/Books/d7d8b59e-06d8-4e47-999e-d2e38e032bb5
 
 
 ### Update book Data
 
-Put http://localhost:8080/Books/4?title=mmm&price=122.56
+Put http://localhost:8080/Books/026f9be5-9847-4463-be70-f7de29c4dcbf?title=mmm&price=122.56
 
 
 
@@ -30,4 +32,30 @@ GET http://localhost:8080/Books/DESC
 
 
 ### Delete All Books
-DELETE http://localhost:8080/Books/deleteAll
+DELETE http://localhost:8080/Books/deleteAllBooks
+
+
+#############################################
+
+
+### Get all Authors
+GET http://localhost:8080/Authors
+
+### Create new Authors
+POST http://localhost:8080/Authors
+Content-Type: application/json
+
+{
+  "firstName": "fahmi",
+  "lastName": "tek",
+  "phoneNumber": "01239766789"
+}
+
+
+### Delete book by id
+DELETE http://localhost:8080/Authors/936cec46-263d-465a-bf27-0b8802b6af7f
+
+
+### Delete All Books
+DELETE http://localhost:8080/Authors/deleteAllAuthors
+

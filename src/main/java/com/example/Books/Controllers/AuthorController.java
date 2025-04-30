@@ -1,7 +1,12 @@
-package com.example.Books.Authors;
+package com.example.Books.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.Books.DTO.AuthorDto;
+import com.example.Books.Entitys.Author;
+import com.example.Books.Services.AuthorService;
+
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +24,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class AuthorController {
 
     @Autowired
-    private final AuthorService authorService ;
+    private AuthorService authorService ;
 
-	public AuthorController(AuthorService authorService) {
-        this.authorService = authorService;
-    }
+	// public AuthorController(AuthorService authorService) {
+    //     this.authorService = authorService;
+    // }
 
 
     @GetMapping
-	public List<AuthorDto> getAuthor () { 
+	public List<AuthorDto> getAuthors () { 
         return authorService.getAuthorDto();
 
 	}
@@ -51,9 +56,9 @@ public class AuthorController {
         authorService.updateAuthor(AuthorId , firstName , lastName ) ;
     }
 
-    @DeleteMapping("/deleteAllAuthors")
-    public void deleteAllAuthor() {
-        authorService.deleteAllAuthor();
+    @DeleteMapping("/delete")
+    public void deleteAllAuthors() {
+        authorService.deleteAllAuthors();
 }
     
 

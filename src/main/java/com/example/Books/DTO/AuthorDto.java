@@ -1,7 +1,7 @@
-package com.example.Books.Authors;
+package com.example.Books.DTO;
 import java.util.List;
 import java.util.UUID;
-import com.example.Books.Books.BookWithoutAuthorDto;
+
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.Books.Books;
+package com.example.Books.DTO;
 import java.util.UUID;
 import lombok.Data;
 import lombok.AllArgsConstructor;

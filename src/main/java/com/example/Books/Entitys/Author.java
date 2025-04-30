@@ -1,7 +1,7 @@
-package com.example.Books.Authors;
+package com.example.Books.Entitys;
 import java.util.List;
 import java.util.UUID;
-import com.example.Books.Books.Book;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,15 +29,5 @@ public class Author {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Book> books;
-
-    // @Override
-    // public String toString() {
-    //     return "Author { " +
-    //         "id => " + id +
-    //         ", first name => " + firstName +
-    //         ", last name => " + lastName +
-    //         ", phone number => " + phoneNumber + 
-    //         ", books => " + (books != null ? books.toString() : "No books") + " }"; 
-    // }
     
 }

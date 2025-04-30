@@ -1,23 +1,31 @@
-package com.example.Books.Authors;
+package com.example.Books.Services;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.Books.Books.Book;
-import com.example.Books.Books.BookWithoutAuthorDto;
+
+import com.example.Books.DTO.AuthorDto;
+import com.example.Books.DTO.BookWithoutAuthorDto;
+import com.example.Books.Entitys.Author;
+// import com.example.Books.Entitys.Book;
+import com.example.Books.Repositorys.AuthorRepository;
+
 import jakarta.transaction.Transactional;
 
 @Service
 public class AuthorService {
 
     @Autowired  
-    private final AuthorRepository authorRepository ; 
+    private AuthorRepository authorRepository ; 
 
-    public AuthorService(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
+    @Autowired
+    private BookService bookService ;
+
+    // public AuthorService(AuthorRepository authorRepository) {
+    //     this.authorRepository = authorRepository;
+    // }
 
     public List<Author> getAuthor () { 
 		return authorRepository.findAll() ;
@@ -54,18 +62,11 @@ public class AuthorService {
 
     }
 
-    public void deleteAllAuthor() {
+    public void deleteAllAuthors() {
         authorRepository.deleteAll();
     }
 
-    private BookWithoutAuthorDto bookWithoutAuthorDto (Book book){
-        BookWithoutAuthorDto bookWithoutAuthorDto = new BookWithoutAuthorDto();
-        bookWithoutAuthorDto.setId(book.getId());
-        bookWithoutAuthorDto.setTitle(book.getTitle());
-        bookWithoutAuthorDto.setPrice(book.getPrice());
-        bookWithoutAuthorDto.setState(book.isState());
-        return bookWithoutAuthorDto;
-    }
+
 
     private AuthorDto authorToDto(Author author) {
         AuthorDto authorDto = new AuthorDto() ;
@@ -78,8 +79,9 @@ public class AuthorService {
 
             List<BookWithoutAuthorDto> bookWithoutAuthorDto = author.getBooks()
                 .stream()
-                .map(this::bookWithoutAuthorDto) // لازم تكون عامل الميثود دي
-            .collect(Collectors.toList());
+                .filter(book -> book.getPrice()>50)
+                .map(book -> bookService.bookWithoutAuthorDto(book)) 
+                .collect(Collectors.toList());
             authorDto.setBooks(bookWithoutAuthorDto);
         }
         return authorDto ;

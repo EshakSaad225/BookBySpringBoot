@@ -1,10 +1,17 @@
-package com.example.Books.Books;
+package com.example.Books.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.Books.DTO.BookDto;
+import com.example.Books.Entitys.Book;
+import com.example.Books.Services.BookService;
+
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,22 +25,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class BookController {
 
     @Autowired
-    private final BookService bookService ;
+    private BookService bookService ;
 
-	public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
+	// public BookController(BookService bookService) {
+    //     this.bookService = bookService;
+    // }
 
     @GetMapping
-	public List<BookDto> getBook () { 
+	public List<BookDto> getBooks () { 
         return bookService.getBookDto();
-
 	}
 
-    @GetMapping("/DESC")
-	public List<BookDto> getDESCBook () { 
-        return bookService.getBookDtoDEC();
-
+    @GetMapping("/sorted")
+	public List<BookDto> getDESCBooks (@SortDefault(sort = "price",direction = Sort.Direction.DESC)Sort sort) { 
+        return bookService.getBookDtoDEC(sort);
 	}
 
     @PostMapping
@@ -55,7 +60,7 @@ public class BookController {
         bookService.updateBook(bookId , title , price ) ;
     }
 
-    @DeleteMapping("/deleteAllBooks")
+    @DeleteMapping("/delete")
     public void deleteAllBooks() {
     bookService.deleteAllBooks();
 }

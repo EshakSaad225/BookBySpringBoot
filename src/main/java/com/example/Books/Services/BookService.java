@@ -1,4 +1,4 @@
- package com.example.Books.Books;
+ package com.example.Books.Services;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,28 +9,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.example.Books.DTO.BookDto;
+import com.example.Books.DTO.BookWithoutAuthorDto;
+import com.example.Books.Entitys.Book;
+import com.example.Books.Repositorys.BookRepository;
+
 import jakarta.transaction.Transactional;
 
 @Service
 public class BookService {
 
     @Autowired  
-    private final BookRepository bookRepository ; 
+    private BookRepository bookRepository ; 
 
-    
+    // public BookService(BookRepository bookRepository) {
+    //     this.bookRepository = bookRepository;
+    // }
 
-    public BookService(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
-
-    public List<Book> getBook () { 
+    public List<Book> getBooks () { 
 		return bookRepository.findAll() ;
         
         // return bookRepository.findAll(Sort.by(Sort.Direction.ASC, "id")) ;
 	}
 
-    public List<Book> getDESCBook () {         
-        return bookRepository.findAll(Sort.by(Sort.Direction.DESC, "price")) ;
+    public List<Book> getSortedBook (Sort sort) {         
+        return bookRepository.findAll(sort) ;
 	}
 
     public void addNewBook(Book book) {
@@ -88,7 +91,7 @@ public class BookService {
     }
 
     public List<BookDto> getBookDto(){
-        List<Book> books = getBook();
+        List<Book> books = getBooks();
         if(books.isEmpty()){
             return List.of() ;
         }
@@ -97,14 +100,23 @@ public class BookService {
         .toList();
     }
 
-    public List<BookDto> getBookDtoDEC(){
-        List<Book> books = getDESCBook();
+    public List<BookDto> getBookDtoDEC(Sort sort){
+        List<Book> books = getSortedBook(sort);
         if(books.isEmpty()){
             return List.of() ;
         }
         return books.stream()
         .map(this::booktoDto)
         .toList();
+    }
+
+        public BookWithoutAuthorDto bookWithoutAuthorDto (Book book){
+        BookWithoutAuthorDto bookWithoutAuthorDto = new BookWithoutAuthorDto();
+        bookWithoutAuthorDto.setId(book.getId());
+        bookWithoutAuthorDto.setTitle(book.getTitle());
+        bookWithoutAuthorDto.setPrice(book.getPrice());
+        bookWithoutAuthorDto.setState(book.isState());
+        return bookWithoutAuthorDto;
     }
     
 }

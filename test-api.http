@@ -27,7 +27,7 @@ Put http://localhost:8080/Books/026f9be5-9847-4463-be70-f7de29c4dcbf?title=mmm&p
 
 
 ### Get DESC books
-GET http://localhost:8080/Books/DESC
+GET http://localhost:8080/Books/sorted?sort=price,ASC
 
 
 

@@ -1,4 +1,5 @@
-** Book & Author Management System **
+Book & Author Management System .
+
 This is a simple backend application built using Java and Spring Boot to manage books and their authors. It supports full CRUD operations and models the relationship between books and authors (One-to-Many / Many-to-One).
 --------------------------------------------------------
 Features :
